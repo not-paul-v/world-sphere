@@ -1,5 +1,5 @@
 {
-    "name": "@world-sphere/core",
+    "name": "@world-sphere/data",
     "version": "0.0.0",
     "main": "./index.tsx",
     "types": "./index.tsx",
