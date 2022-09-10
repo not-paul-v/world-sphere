@@ -1,7 +1,9 @@
+import { SphereContainer } from "@world-sphere/react";
+
 export default function Web() {
     return (
-        <div>
-            <h1>Web</h1>
+        <div style={{ width: "100vw", height: "100vh" }}>
+            <SphereContainer />
         </div>
     );
 }
