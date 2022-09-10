@@ -1,14 +1,9 @@
 import { OrbitControls } from "@react-three/drei";
 import { loadGeometries } from "@world-sphere/core";
 import { useState, useRef, useEffect } from "react";
-import { useFrame } from "react-three-fiber";
-import {
-    BufferGeometry,
-    BufferGeometryUtils,
-    Group,
-    Raycaster,
-    Vector2,
-} from "three";
+import { useFrame } from "@react-three/fiber";
+import { BufferGeometry, Group, Raycaster, Vector2 } from "three";
+import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils";
 import { MemoizedSphereCountry } from "./SphereCountry";
 
 export function Sphere() {
