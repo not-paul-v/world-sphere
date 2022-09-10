@@ -10,10 +10,17 @@
     "devDependencies": {
         "@types/react": "^17.0.37",
         "@types/react-dom": "^17.0.11",
+        "@types/three": "^0.144.0",
         "eslint": "^7.32.0",
         "eslint-config-custom": "*",
         "react": "^18.2.0",
         "tsconfig": "*",
         "typescript": "^4.5.2"
+    },
+    "dependencies": {
+        "@react-three/drei": "^9.29.1",
+        "react-three-fiber": "^6.0.13",
+        "three": "^0.144.0",
+        "@world-sphere/core": "*"
     }
 }
