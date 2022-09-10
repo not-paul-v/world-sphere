@@ -1,1 +1,1 @@
-import * as React from "react";
+export { loadGeometries } from "./loadGeometries";
