@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "@react-three/drei": "^9.29.1",
-        "react-three-fiber": "^6.0.13",
+        "@react-three/fiber": "^8.7.4",
         "three": "^0.144.0",
         "@world-sphere/core": "*"
     }
