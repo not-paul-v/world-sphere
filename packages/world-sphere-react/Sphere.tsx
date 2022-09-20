@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import { BufferGeometry, Group, Raycaster, Vector2 } from "three";
 import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 import { MemoizedSphereCountry } from "./SphereCountry";
+import { loadMergedGeometries } from "@world-sphere/core/loadGeometries";
 
 export function Sphere() {
     const [countryGeometries, setCountryGeometries] = useState<
@@ -15,22 +16,8 @@ export function Sphere() {
 
     const countriesRef = useRef<Group>(null);
 
-    //TODO: refactor merging to core package
     useEffect(() => {
-        const geoPromise = loadGeometries();
-        geoPromise?.then((data) => {
-            const geometries = [];
-
-            for (let countryData of data) {
-                if (countryData.geometries.length > 0) {
-                    const merged = mergeBufferGeometries(
-                        countryData.geometries
-                    );
-                    geometries.push({ key: countryData.key, geometry: merged });
-                }
-            }
-            setCountryGeometries(geometries);
-        });
+        loadMergedGeometries().then((data) => setCountryGeometries(data));
     }, []);
 
     //TODO: fix country focus not releasing after mouse leaving

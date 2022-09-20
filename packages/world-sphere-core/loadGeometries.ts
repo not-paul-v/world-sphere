@@ -1,7 +1,23 @@
-import { BufferGeometry } from "three";
-import { CountryData } from "./types/types";
-import { GeometryHelper } from "./utils/geometryHelper";
 import data from "./assets/countriesData.json";
+import { BufferGeometry } from "three";
+import { CountryData, MergedCountryData } from "./types/types";
+import { GeometryHelper } from "./utils/geometryHelper";
+import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
+
+export async function loadMergedGeometries(): Promise<MergedCountryData> {
+    const mergedCountryData: MergedCountryData = [];
+
+    const geos = await loadGeometries();
+
+    for (let countryData of geos) {
+        if (countryData.geometries.length > 0) {
+            const merged = mergeBufferGeometries(countryData.geometries);
+            mergedCountryData.push({ key: countryData.key, geometry: merged });
+        }
+    }
+
+    return mergedCountryData;
+}
 
 /**
  *

@@ -14,3 +14,8 @@ export interface CountryData {
     key: string;
     geometries: BufferGeometry[];
 }
+
+export type MergedCountryData = {
+    key: string;
+    geometry: BufferGeometry;
+}[];
