@@ -1,11 +1,8 @@
-import { OrbitControls } from "@react-three/drei";
-import { loadGeometries } from "@world-sphere/core";
 import { useState, useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { BufferGeometry, Group, Raycaster, Vector2 } from "three";
-import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 import { MemoizedSphereCountry } from "./SphereCountry";
-import { loadMergedGeometries } from "@world-sphere/core/loadGeometries";
+import { loadMergedGeometries } from "@world-sphere/core";
 
 export function Sphere() {
     const [countryGeometries, setCountryGeometries] = useState<
@@ -48,18 +45,8 @@ export function Sphere() {
 
     return (
         <>
-            <ambientLight />
             <mesh>
                 <sphereGeometry args={[1, 64, 64]} />
-                <OrbitControls
-                    enableZoom
-                    enableRotate
-                    enablePan={false}
-                    zoomSpeed={0.6}
-                    rotateSpeed={0.4}
-                    minZoom={100}
-                    maxZoom={0.2}
-                />
             </mesh>
             <group ref={countriesRef}>
                 {countryGeometries
