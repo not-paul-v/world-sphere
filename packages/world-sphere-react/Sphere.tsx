@@ -3,7 +3,7 @@ import { loadGeometries } from "@world-sphere/core";
 import { useState, useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { BufferGeometry, Group, Raycaster, Vector2 } from "three";
-import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils";
+import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 import { MemoizedSphereCountry } from "./SphereCountry";
 
 export function Sphere() {
@@ -23,7 +23,7 @@ export function Sphere() {
 
             for (let countryData of data) {
                 if (countryData.geometries.length > 0) {
-                    const merged = BufferGeometryUtils.mergeBufferGeometries(
+                    const merged = mergeBufferGeometries(
                         countryData.geometries
                     );
                     geometries.push({ key: countryData.key, geometry: merged });
