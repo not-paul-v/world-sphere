@@ -11,8 +11,10 @@ export async function loadMergedGeometries(): Promise<MergedCountryData> {
 
     for (let countryData of geos) {
         if (countryData.geometries.length > 0) {
-            const merged = mergeBufferGeometries(countryData.geometries);
-            mergedCountryData.push({ key: countryData.key, geometry: merged });
+            mergedCountryData.push({
+                key: countryData.key,
+                geometry: mergeBufferGeometries(countryData.geometries),
+            });
         }
     }
 
