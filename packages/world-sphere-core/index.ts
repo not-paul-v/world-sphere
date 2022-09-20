@@ -1,1 +1,1 @@
-export { loadGeometries } from "./loadGeometries";
+export { loadGeometries, loadMergedGeometries } from "./loadGeometries";
