@@ -1,3 +1,4 @@
+import countryData from "../assets/world.json";
 import {
     Scene,
     Mesh,
@@ -11,7 +12,6 @@ import {
 } from "three";
 import { Coordinate, Country } from "@world-sphere/core/types/types";
 import { ProjectionHelper } from "@world-sphere/core/utils/projectionHelper";
-import countryData from "../assets/world.json";
 import { getCountriesData } from "./getCountriesData";
 
 export class CountryHelper {
@@ -70,8 +70,8 @@ export class CountryHelper {
 
     getCountryFromLatLon(lat: number, lon: number) {
         const { x, y } = this.convertPoint([lat, lon]);
-        // offset bc of weird shape "bug"
-        return this.getCountryFromXY(x, y + 25);
+        // offset (+25) bc of weird shape "bug"
+        return this.getCountryFromXY(x, y);
     }
 
     getCountryFromXY(x: number, y: number) {
