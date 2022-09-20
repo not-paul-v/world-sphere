@@ -9,6 +9,11 @@ const ROWS = 350;
 const DENSITY = 120;
 
 export function generateFile(filename: string) {
+    const coordinates = getCoordinates();
+    fs.writeFileSync(filename, JSON.stringify(coordinates));
+}
+
+export function getCoordinates() {
     const countryHelper = new CountryHelper();
 
     const coordinates: {
@@ -31,5 +36,5 @@ export function generateFile(filename: string) {
         }
     }
 
-    fs.writeFileSync(filename, JSON.stringify(coordinates));
+    return coordinates;
 }
