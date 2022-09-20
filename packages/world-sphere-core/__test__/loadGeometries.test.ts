@@ -1,5 +1,10 @@
 import { loadGeometries } from "../loadGeometries";
 
-it("should load the geometries", () => {
-    expect(1).toBe(1);
+it("should load the geometries", async () => {
+    const geometries = await loadGeometries();
+
+    expect(geometries.length).toBe(176);
+    geometries.forEach((data) => {
+        expect(data.geometries.length).toBeGreaterThan(0);
+    });
 });
