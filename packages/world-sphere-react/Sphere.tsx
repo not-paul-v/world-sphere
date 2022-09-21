@@ -1,53 +1,107 @@
 import { useState, useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
-import { BufferGeometry, Group, Raycaster, Vector2 } from "three";
+import { BufferGeometry, Group, Raycaster, Vector2, Mesh } from "three";
 import { MemoizedSphereCountry } from "./SphereCountry";
 import { loadMergedGeometries } from "@world-sphere/core";
+import { acceleratedRaycast } from "three-mesh-bvh";
+
+Mesh.prototype.raycast = acceleratedRaycast;
 
 export function Sphere() {
     const [countryGeometries, setCountryGeometries] = useState<
         { key: string; geometry: BufferGeometry }[] | undefined
     >();
-    const [mouseRay] = useState(new Raycaster());
     const [mouseHoverCountry, setMouseHoverCountry] = useState("");
 
+    const [rays] = useState({
+        middle: new Raycaster(),
+        left: new Raycaster(),
+        right: new Raycaster(),
+        up: new Raycaster(),
+        down: new Raycaster(),
+        leftUp: new Raycaster(),
+        rightUp: new Raycaster(),
+        rightDown: new Raycaster(),
+        leftDown: new Raycaster(),
+    });
+
     const countriesRef = useRef<Group>(null);
+    const sphereRef = useRef<Group>(null);
 
     useEffect(() => {
         loadMergedGeometries().then((data) => setCountryGeometries(data));
     }, []);
 
-    //TODO: fix country focus not releasing after mouse leaving
+    //TODO: refactor
     useFrame(({ mouse, camera }) => {
-        if (!countryGeometries || !countriesRef.current) return;
+        if (!countryGeometries || !countriesRef.current || !sphereRef.current)
+            return;
 
-        const pointer = new Vector2(mouse.x, mouse.y);
+        const offset = 0.005;
+        const pointerM = new Vector2(mouse.x, mouse.y);
+        const pointerL = new Vector2(mouse.x - offset, mouse.y);
+        const pointerR = new Vector2(mouse.x + offset, mouse.y);
+        const pointerLU = new Vector2(mouse.x - offset, mouse.y + offset);
+        const pointerRU = new Vector2(mouse.x + offset, mouse.y + offset);
+        const pointerLD = new Vector2(mouse.x - offset, mouse.y - offset);
+        const pointerRD = new Vector2(mouse.x + offset, mouse.y - offset);
 
-        mouseRay.setFromCamera(pointer, camera);
-        const intersects = mouseRay.intersectObjects(
-            countriesRef.current.children
-        );
+        rays.middle.setFromCamera(pointerM, camera);
+        rays.left.setFromCamera(pointerL, camera);
+        rays.right.setFromCamera(pointerR, camera);
+        rays.leftUp.setFromCamera(pointerLU, camera);
+        rays.rightUp.setFromCamera(pointerRU, camera);
+        rays.leftDown.setFromCamera(pointerLD, camera);
+        rays.rightDown.setFromCamera(pointerRD, camera);
 
-        if (intersects.length > 0) {
-            let closest = intersects.reduce(function (res, obj) {
-                return obj.distance < res.distance ? obj : res;
-            });
+        const results: { [key: string]: number } = {};
 
-            if (
-                closest.distance < 2 &&
-                closest.object.name !== mouseHoverCountry
-            ) {
-                setMouseHoverCountry(closest.object.name);
-                return;
+        let countUndefined = 5;
+
+        Object.keys(rays).forEach((key) => {
+            if (!countriesRef.current) return;
+
+            const ray = rays[key as keyof typeof rays];
+
+            ray.firstHitOnly = true;
+            const intersects = ray.intersectObjects(
+                countriesRef.current.children,
+                false
+            );
+
+            //TODO: fix fixed distance
+            if (intersects.length > 0 && intersects[0].distance < 2) {
+                const countryName = intersects[0].object.name;
+                if (countryName in results) {
+                    results[countryName]++;
+                } else {
+                    results[countryName] = 1;
+                }
+                countUndefined--;
+            }
+        });
+
+        if (countUndefined == 5) {
+            setMouseHoverCountry("");
+        } else {
+            const selectedEntry = Object.entries(results).sort(
+                (x, y) => y[1] - x[1]
+            )[0];
+
+            if (selectedEntry[0] !== mouseHoverCountry) {
+                setMouseHoverCountry(selectedEntry[0]);
             }
         }
     });
 
     return (
         <>
-            <mesh>
-                <sphereGeometry args={[1, 64, 64]} />
-            </mesh>
+            <axesHelper args={[100]} />
+            <group ref={sphereRef}>
+                <mesh>
+                    <sphereGeometry args={[1, 64, 64]} />
+                </mesh>
+            </group>
             <group ref={countriesRef}>
                 {countryGeometries
                     ? countryGeometries.map((country) => (
