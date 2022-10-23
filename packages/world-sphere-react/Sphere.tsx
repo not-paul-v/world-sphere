@@ -1,6 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
-import { BufferGeometry, Group, Raycaster, Vector2, Mesh } from "three";
+import {
+    BufferGeometry,
+    Group,
+    Raycaster,
+    Vector2,
+    Mesh,
+    Vector3,
+} from "three";
 import { MemoizedSphereCountry } from "./SphereCountry";
 import { loadMergedGeometries } from "@world-sphere/core";
 import { acceleratedRaycast } from "three-mesh-bvh";
@@ -58,6 +65,10 @@ export function Sphere() {
 
         let countUndefined = 5;
 
+        const cameraPosition = camera.position;
+        const origin = new Vector3(0, 0, 0);
+        const cameraDistanceFromOrigin = cameraPosition.distanceTo(origin);
+
         Object.keys(rays).forEach((key) => {
             if (!countriesRef.current) return;
 
@@ -69,8 +80,10 @@ export function Sphere() {
                 false
             );
 
-            //TODO: fix fixed distance
-            if (intersects.length > 0 && intersects[0].distance < 2) {
+            if (
+                intersects.length > 0 &&
+                intersects[0].distance < cameraDistanceFromOrigin
+            ) {
                 const countryName = intersects[0].object.name;
                 if (countryName in results) {
                     results[countryName]++;
