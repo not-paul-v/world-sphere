@@ -43,11 +43,7 @@ export function Sphere() {
                           <MemoizedSphereCountry
                               countryName={country.key}
                               geometry={country.geometry}
-                              color={
-                                  hoveredCountry === country.key
-                                      ? "black"
-                                      : "red"
-                              }
+                              isHovered={hoveredCountry === country.key}
                           />
                       ))
                     : null}
