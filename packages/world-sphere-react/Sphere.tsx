@@ -1,53 +1,42 @@
 import { useState, useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
-import { BufferGeometry, Group, Raycaster, Vector2 } from "three";
+import {
+    BufferGeometry,
+    Group,
+    Raycaster,
+    Vector2,
+    Mesh,
+    Vector3,
+} from "three";
 import { MemoizedSphereCountry } from "./SphereCountry";
-import { loadMergedGeometries } from "@world-sphere/core";
+import { loadMergedGeometries, HoverHelper } from "@world-sphere/core";
+import { acceleratedRaycast } from "three-mesh-bvh";
+import { useCountryHovered } from "./hooks/useCountryHovered";
+
+Mesh.prototype.raycast = acceleratedRaycast;
 
 export function Sphere() {
     const [countryGeometries, setCountryGeometries] = useState<
         { key: string; geometry: BufferGeometry }[] | undefined
     >();
-    const [mouseRay] = useState(new Raycaster());
-    const [mouseHoverCountry, setMouseHoverCountry] = useState("");
 
     const countriesRef = useRef<Group>(null);
+    const sphereRef = useRef<Group>(null);
+
+    const hoveredCountry = useCountryHovered(countriesRef.current);
 
     useEffect(() => {
         loadMergedGeometries().then((data) => setCountryGeometries(data));
     }, []);
 
-    //TODO: fix country focus not releasing after mouse leaving
-    useFrame(({ mouse, camera }) => {
-        if (!countryGeometries || !countriesRef.current) return;
-
-        const pointer = new Vector2(mouse.x, mouse.y);
-
-        mouseRay.setFromCamera(pointer, camera);
-        const intersects = mouseRay.intersectObjects(
-            countriesRef.current.children
-        );
-
-        if (intersects.length > 0) {
-            let closest = intersects.reduce(function (res, obj) {
-                return obj.distance < res.distance ? obj : res;
-            });
-
-            if (
-                closest.distance < 2 &&
-                closest.object.name !== mouseHoverCountry
-            ) {
-                setMouseHoverCountry(closest.object.name);
-                return;
-            }
-        }
-    });
-
     return (
         <>
-            <mesh>
-                <sphereGeometry args={[1, 64, 64]} />
-            </mesh>
+            <axesHelper args={[100]} />
+            <group ref={sphereRef}>
+                <mesh>
+                    <sphereGeometry args={[1, 64, 64]} />
+                </mesh>
+            </group>
             <group ref={countriesRef}>
                 {countryGeometries
                     ? countryGeometries.map((country) => (
@@ -55,7 +44,7 @@ export function Sphere() {
                               countryName={country.key}
                               geometry={country.geometry}
                               color={
-                                  mouseHoverCountry === country.key
+                                  hoveredCountry === country.key
                                       ? "black"
                                       : "red"
                               }

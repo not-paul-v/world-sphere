@@ -22,6 +22,7 @@
         "@react-three/drei": "^9.29.1",
         "@react-three/fiber": "^8.7.4",
         "three": "^0.144.0",
+        "three-mesh-bvh": "^0.5.16",
         "@world-sphere/core": "*"
     }
 }
