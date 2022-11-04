@@ -33,7 +33,6 @@ export class GeometryHelper {
     }
 
     getGeometry(lat: number, lon: number): BufferGeometry {
-        //TODO check if three MathUtils works the same
         this.lonHelper.rotation.y = MathUtils.degToRad(lon) + this.lonFudge;
         this.latHelper.rotation.x =
             MathUtils.degToRad(-lat + 25) + this.latFudge;
