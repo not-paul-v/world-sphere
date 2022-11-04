@@ -70,7 +70,7 @@ export class HoverHelper {
 
             const intersects = ray.intersectObjects(
                 this.countriesGroup.children,
-                false
+                true
             );
 
             if (
