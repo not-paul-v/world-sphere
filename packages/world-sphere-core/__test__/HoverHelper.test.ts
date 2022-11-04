@@ -3,7 +3,7 @@ import { Camera, Group, Mesh, Vector2 } from "three";
 import { HoverHelper } from "../HoverHelper";
 import { loadMergedGeometries } from "../loadGeometries";
 
-it("should return the coorect country on hover", async () => {
+it("should return the correct country on hover", async () => {
     const countriesData = await loadMergedGeometries();
 
     const camera = new Camera();
