@@ -1,15 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
 import {
     BufferGeometry,
     Group,
-    Raycaster,
-    Vector2,
     Mesh,
-    Vector3,
 } from "three";
 import { MemoizedSphereCountry } from "./SphereCountry";
-import { loadMergedGeometries, HoverHelper } from "@world-sphere/core";
+import { loadMergedGeometries } from "@world-sphere/core";
 import { acceleratedRaycast } from "three-mesh-bvh";
 import { useCountryHovered } from "./hooks/useCountryHovered";
 
@@ -23,7 +19,7 @@ export function Sphere() {
     const countriesRef = useRef<Group>(null);
     const sphereRef = useRef<Group>(null);
 
-    const hoveredCountry = useCountryHovered(countriesRef.current);
+    const hoveredCountry = useCountryHovered(countriesRef.current, sphereRef.current);
 
     useEffect(() => {
         loadMergedGeometries().then((data) => setCountryGeometries(data));
@@ -35,6 +31,7 @@ export function Sphere() {
             <group ref={sphereRef}>
                 <mesh>
                     <sphereGeometry args={[1, 64, 64]} />
+                    <meshBasicMaterial color="blue" />
                 </mesh>
             </group>
             <group ref={countriesRef}>
