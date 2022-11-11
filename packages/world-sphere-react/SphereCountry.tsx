@@ -24,7 +24,7 @@ export function SphereCountry({
             key={countryName}
             geometry={geometry}
             name={countryName}
-            variants={{ "hover": { z: 0.005 }}}
+            variants={{ "hover": { z: 0.0 }}}
         >
             <meshBasicMaterial color={isHovered ? "red": "black"} />
         </motion.mesh>
