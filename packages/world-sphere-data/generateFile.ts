@@ -23,6 +23,11 @@ export function getCoordinates() {
         }
     });
 
+    for (let countryKey in coordinates) {
+        const sortedArr = coordinates[countryKey].sort((a, b) => a[0] - a[1]);
+        coordinates[countryKey] = sortedArr;
+    }
+
     return coordinates;
 }
 
