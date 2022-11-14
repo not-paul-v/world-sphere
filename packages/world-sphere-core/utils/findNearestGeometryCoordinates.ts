@@ -1,7 +1,7 @@
 import data from "../assets/countriesData.json";
 import { Coordinate } from "../types/types";
 
-export const findNearestGeometryCoordinates = (lat: number, lon: number): Coordinate | undefined => {
+export const findNearestGeometryCoordinates = (lat: number, lon: number): Coordinate => {
     const roundedLat = Math.round(lat);
     const roundedLon = Math.round(lon);
     
@@ -22,5 +22,5 @@ export const findNearestGeometryCoordinates = (lat: number, lon: number): Coordi
             return coordinate as Coordinate;
         }
     }
-    return undefined
+    return [lat, lon] as Coordinate;
 }
