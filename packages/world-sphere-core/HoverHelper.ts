@@ -53,16 +53,11 @@ export class HoverHelper {
         
         const origin = new Vector3(0, 0, 0);
         const intersectionPoint = sphereIntersection[0]?.point;
-        // console.log(intersectionPoint);
-
-        // .1386 -.2412 .96197
 
         if (!intersectionPoint) return "";
 
         const dir = new Vector3(0, 0, 0);
         dir.subVectors(origin, intersectionPoint).normalize();
-
-        // console.log(dir);
 
         const leftRayVector = new Vector3();
         const rightRayVector = new Vector3();
