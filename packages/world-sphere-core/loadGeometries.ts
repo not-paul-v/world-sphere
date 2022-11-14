@@ -1,7 +1,7 @@
 import data from "./assets/countriesData.json";
 import { BufferGeometry } from "three";
 import { CountryData, MergedCountryData } from "./types/types";
-import { GeometryHelper } from "./utils/geometryHelper";
+import { GeometryHelper } from "./utils/GeometryHelper";
 import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 
 export async function loadMergedGeometries(): Promise<MergedCountryData> {
