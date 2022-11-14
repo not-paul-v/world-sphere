@@ -8,6 +8,7 @@ import { MemoizedSphereCountry } from "./SphereCountry";
 import { loadMergedGeometries } from "@world-sphere/core";
 import { acceleratedRaycast } from "three-mesh-bvh";
 import { useCountryHovered } from "./hooks/useCountryHovered";
+import { GeometryHelper } from "@world-sphere/core/utils/GeometryHelper";
 
 Mesh.prototype.raycast = acceleratedRaycast;
 
@@ -16,8 +17,11 @@ export function Sphere() {
         { key: string; geometry: BufferGeometry }[] | undefined
     >();
 
+    const [geometryHelper] = useState(new GeometryHelper());
+
     const countriesRef = useRef<Group>(null);
     const sphereRef = useRef<Group>(null);
+    const beamRef = useRef<Group>(null);
 
     const hoveredCountry = useCountryHovered(countriesRef.current, sphereRef.current);
 
@@ -25,9 +29,19 @@ export function Sphere() {
         loadMergedGeometries().then((data) => setCountryGeometries(data));
     }, []);
 
+    // display beam on nearest tile
+    useEffect(() => {
+        if (!beamRef || !beamRef.current) return;
+
+        const beam = geometryHelper.getBeamGeometry(52, 13);
+
+        if (beam)
+            beamRef.current.add(beam);
+    }, [geometryHelper]);
+
     return (
         <>
-            <axesHelper args={[100]} />
+            <group ref={beamRef} />
             <group ref={sphereRef}>
                 <mesh>
                     <sphereGeometry args={[1, 64, 64]} />
