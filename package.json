@@ -38,6 +38,7 @@
     },
     "packageManager": "npm@7.24.0",
     "dependencies": {
-        "framer-motion-3d": "^7.6.4"
+        "framer-motion-3d": "^7.6.4",
+        "@react-three/postprocessing": "^2.7.0"
     }
 }
