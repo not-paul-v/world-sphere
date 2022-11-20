@@ -8,7 +8,10 @@ import {
     Matrix4,
     Line,
     LineBasicMaterial,
+    ColorRepresentation,
+    MeshStandardMaterial,
 } from "three";
+import { LineMaterial } from "three/examples/jsm/lines/LineMaterial";
 import { findNearestGeometryCoordinates } from "./findNearestGeometryCoordinates";
 
 export class GeometryHelper {
@@ -57,19 +60,22 @@ export class GeometryHelper {
     }
 
     getBeamGeometry(lat: number, lon: number): Line | undefined {
-        const coords = findNearestGeometryCoordinates(lat, lon)
+        const coords = findNearestGeometryCoordinates(lat, lon);
         if (!coords) return undefined;
 
-
         const startPoint = new Vector3(0, 0, 0);
-        const endPoint = new Vector3(0, 100, 0);
+        const endPoint = new Vector3(0, 50, 0);
         let beamGeometry = new BufferGeometry();
         beamGeometry.setFromPoints([startPoint, endPoint]);
 
         this.rotateGeometry(beamGeometry);
         this.applyMatrixWorld(beamGeometry, coords[0], coords[1]);
 
-        const material = new LineBasicMaterial({color: "red"});
+        const material = new LineBasicMaterial({
+            color: 0x00ffff,
+            linewidth: 5,
+        });
+
         const beam = new Line(beamGeometry, material);
         return beam;
     }
@@ -78,9 +84,13 @@ export class GeometryHelper {
         const quaternion = new Quaternion();
         quaternion.setFromAxisAngle(new Vector3(1, 1, 1).normalize(), 90);
         geometry.applyQuaternion(quaternion);
-    } 
+    }
 
-    private applyMatrixWorld(geometry: BufferGeometry, lat: number, lon: number) {
+    private applyMatrixWorld(
+        geometry: BufferGeometry,
+        lat: number,
+        lon: number
+    ) {
         const matrixWorld = this.getMatrixWorldAtCoordinates(lat, lon);
         geometry.applyMatrix4(matrixWorld);
     }
