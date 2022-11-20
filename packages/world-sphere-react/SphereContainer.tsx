@@ -5,9 +5,11 @@ import { OrbitControls } from "@react-three/drei";
 
 export function SphereContainer() {
     return (
-        <Canvas camera={{ fov: 90, position: [0, 0, 2] }}>
+        <Canvas
+            camera={{ fov: 90, position: [0, 0, 2] }}
+            style={{ background: "#040D21" }}
+        >
             <Suspense fallback={null}>
-                <ambientLight />
                 <OrbitControls
                     enableZoom
                     enableRotate

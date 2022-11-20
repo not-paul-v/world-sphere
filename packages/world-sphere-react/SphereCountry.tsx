@@ -21,13 +21,13 @@ export function SphereCountry({
     return (
         <motion.group animate={isHovered ? "hover" : "rest"}>
             <motion.mesh
-            key={countryName}
-            geometry={geometry}
-            name={countryName}
-            variants={{ "hover": { z: 0.0 }}}
-        >
-            <meshBasicMaterial color={isHovered ? "red": "black"} />
-        </motion.mesh>
+                key={countryName}
+                geometry={geometry}
+                name={countryName}
+                variants={{ hover: { z: 0.0 } }}
+            >
+                <meshStandardMaterial color={isHovered ? "red" : "black"} />
+            </motion.mesh>
         </motion.group>
     );
 }

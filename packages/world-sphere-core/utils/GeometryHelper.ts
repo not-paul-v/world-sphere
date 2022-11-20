@@ -8,10 +8,7 @@ import {
     Matrix4,
     Line,
     LineBasicMaterial,
-    ColorRepresentation,
-    MeshStandardMaterial,
 } from "three";
-import { LineMaterial } from "three/examples/jsm/lines/LineMaterial";
 import { findNearestGeometryCoordinates } from "./findNearestGeometryCoordinates";
 
 export class GeometryHelper {
