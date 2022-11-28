@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { BufferGeometry, Group, Line, Mesh, PointLight, Vector3 } from "three";
 import { MemoizedSphereCountry } from "./SphereCountry";
 import { loadMergedGeometries } from "@world-sphere/core";
@@ -7,16 +7,21 @@ import { useCountryHovered } from "./hooks/useCountryHovered";
 import { GeometryHelper } from "@world-sphere/core/utils/GeometryHelper";
 import { Bloom, EffectComposer, Selection } from "@react-three/postprocessing";
 import { useThree } from "@react-three/fiber";
+import { Coordinate } from "@world-sphere/core/types/types";
 
 Mesh.prototype.raycast = acceleratedRaycast;
 
-export function Sphere() {
+interface SphereProps {
+    beams?: Coordinate[];
+}
+
+export function Sphere({ beams }: SphereProps) {
     const [countryGeometries, setCountryGeometries] = useState<
         { key: string; geometry: BufferGeometry }[] | undefined
     >();
 
     const [geometryHelper] = useState(new GeometryHelper());
-    const [beam, setBeam] = useState<Line | undefined>(undefined);
+    const [beamGeometries] = useState<Line[]>([]);
     const { camera, scene } = useThree();
 
     const countriesRef = useRef<Group>(null);
@@ -42,16 +47,18 @@ export function Sphere() {
 
     // display beam on nearest tile
     useEffect(() => {
-        const beam = geometryHelper.getBeamGeometry(52, 13);
+        if (!beams) return;
 
-        if (beam) {
-            setBeam(beam);
+        for (let beam of beams) {
+            const geometry = geometryHelper.getBeamGeometry(beam[0], beam[1]);
+
+            if (geometry) beamGeometries.push(geometry);
         }
-    }, [geometryHelper]);
+    }, [beams]);
 
     return (
         <>
-            {beam ? (
+            {beamGeometries ? (
                 <Selection>
                     <EffectComposer multisampling={8} autoClear={false}>
                         <Bloom
@@ -59,7 +66,9 @@ export function Sphere() {
                             luminanceSmoothing={0.9}
                         />
                     </EffectComposer>
-                    <primitive object={beam} />
+                    {beamGeometries.map((beam) => (
+                        <primitive object={beam} />
+                    ))}
                 </Selection>
             ) : null}
             <group ref={sphereRef}>
