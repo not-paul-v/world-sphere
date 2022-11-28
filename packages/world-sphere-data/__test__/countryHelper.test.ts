@@ -1,4 +1,4 @@
-import { CountryHelper } from "../utils/countryHelper";
+import { CountryHelper } from "../utils/CountryHelper";
 
 const helper = new CountryHelper();
 

@@ -1,8 +1,8 @@
-import data from "./assets/countriesData.json";
 import { BufferGeometry } from "three";
 import { CountryData, MergedCountryData } from "./types/types";
 import { GeometryHelper } from "./utils/GeometryHelper";
 import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
+import { getCoordinates } from "@world-sphere/data";
 
 export async function loadMergedGeometries(): Promise<MergedCountryData> {
     const mergedCountryData: MergedCountryData = [];
@@ -28,6 +28,8 @@ export async function loadMergedGeometries(): Promise<MergedCountryData> {
 export async function loadGeometries(): Promise<CountryData[]> {
     const geometryHelper = new GeometryHelper();
     const countriesData: CountryData[] = [];
+
+    const data = getCoordinates();
 
     let key: keyof typeof data;
     for (key in data) {

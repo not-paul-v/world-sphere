@@ -1,12 +1,6 @@
 import { Coordinate } from "@world-sphere/core/types/types";
-import { CountryHelper } from "./utils/countryHelper";
-import * as fs from "fs";
+import { CountryHelper } from "./utils/CountryHelper";
 import { MathUtils } from "three";
-
-export function generateFile(filename: string) {
-    const coordinates = getCoordinates();
-    fs.writeFileSync(filename, JSON.stringify(coordinates));
-}
 
 export function getCoordinates() {
     const countryHelper = new CountryHelper();
@@ -37,7 +31,8 @@ function forEachLatLon(callbackFn: (lat: number, lon: number) => void) {
     const DENSITY = 120;
 
     for (let lat = -90; lat <= 85; lat += 180 / ROWS) {
-        const radius = Math.cos(Math.abs(lat) * MathUtils.DEG2RAD) * GLOBE_RADIUS;
+        const radius =
+            Math.cos(Math.abs(lat) * MathUtils.DEG2RAD) * GLOBE_RADIUS;
         const circumference = radius * Math.PI * 2;
         const dotsForLat = Math.abs(circumference * DENSITY);
         for (let x = 0; x < dotsForLat; x++) {
