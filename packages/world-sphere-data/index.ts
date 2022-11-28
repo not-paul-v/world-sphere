@@ -1,3 +1,1 @@
-import { generateFile } from "./generateFile";
-
-generateFile("countriesData.json");
+export { getCoordinates } from "./getCoordinates";

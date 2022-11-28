@@ -1,9 +1,9 @@
 {
     "name": "@world-sphere/data",
     "version": "0.0.0",
-    "main": "index.js",
+    "main": "./index.ts",
+    "types": "./index.ts",
     "license": "MIT",
-    "private": true,
     "scripts": {
         "lint": "eslint *.ts*",
         "gen": "ts-node ./index.ts",

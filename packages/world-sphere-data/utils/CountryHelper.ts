@@ -11,7 +11,7 @@ import {
     Raycaster,
 } from "three";
 import { Coordinate, Country } from "@world-sphere/core/types/types";
-import { ProjectionHelper } from "@world-sphere/core/utils/ProjectionHelper";
+import { ProjectionHelper } from "./ProjectionHelper";
 import { getCountriesData } from "./getCountriesData";
 
 export class CountryHelper {
