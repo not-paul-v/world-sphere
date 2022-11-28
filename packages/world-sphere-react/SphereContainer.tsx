@@ -19,7 +19,7 @@ export function SphereContainer() {
                     minZoom={100}
                     maxZoom={0.2}
                 />
-                <Sphere />
+                <Sphere beams={[[52, 13]]} />
             </Suspense>
         </Canvas>
     );
