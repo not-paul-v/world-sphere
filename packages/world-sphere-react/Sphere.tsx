@@ -7,7 +7,7 @@ import { useCountryHovered } from "./hooks/useCountryHovered";
 import { GeometryHelper } from "@world-sphere/core/utils/GeometryHelper";
 import { Bloom, EffectComposer, Selection } from "@react-three/postprocessing";
 import { useThree } from "@react-three/fiber";
-import { Coordinate } from "@world-sphere/core/types/types";
+import { Coordinate } from "@world-sphere/types";
 
 Mesh.prototype.raycast = acceleratedRaycast;
 
