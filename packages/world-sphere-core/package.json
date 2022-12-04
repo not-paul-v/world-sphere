@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "three": "^0.144.0",
-        "@world-sphere/data": "*"
+        "@world-sphere/data": "*",
+        "@world-sphere/types": "*"
     }
 }
