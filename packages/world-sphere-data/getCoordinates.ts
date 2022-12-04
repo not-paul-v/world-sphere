@@ -1,8 +1,14 @@
-import { Coordinate } from "@world-sphere/core/types/types";
+import { Coordinate } from "@world-sphere/types";
 import { CountryHelper } from "./utils/CountryHelper";
 import { MathUtils } from "three";
+import { GenerationConfig } from "@world-sphere/types";
 
-export function getCoordinates() {
+export async function getCoordinates(config?: GenerationConfig) {
+    if (!config) {
+        const data = await import("./assets/countriesData.json");
+        return data.default;
+    }
+
     const countryHelper = new CountryHelper();
 
     const coordinates: {
@@ -15,7 +21,7 @@ export function getCoordinates() {
             if (country in coordinates) coordinates[country].push([lat, lon]);
             else coordinates[country] = [[lat, lon]];
         }
-    });
+    }, config);
 
     for (let countryKey in coordinates) {
         const sortedArr = coordinates[countryKey].sort((a, b) => a[0] - a[1]);
@@ -25,16 +31,17 @@ export function getCoordinates() {
     return coordinates;
 }
 
-function forEachLatLon(callbackFn: (lat: number, lon: number) => void) {
-    const GLOBE_RADIUS = 1;
-    const ROWS = 350;
-    const DENSITY = 120;
+function forEachLatLon(
+    callbackFn: (lat: number, lon: number) => void,
+    config: GenerationConfig
+) {
+    const { globeRadius, rows, density } = config;
 
-    for (let lat = -90; lat <= 85; lat += 180 / ROWS) {
+    for (let lat = -90; lat <= 85; lat += 180 / rows) {
         const radius =
-            Math.cos(Math.abs(lat) * MathUtils.DEG2RAD) * GLOBE_RADIUS;
+            Math.cos(Math.abs(lat) * MathUtils.DEG2RAD) * globeRadius;
         const circumference = radius * Math.PI * 2;
-        const dotsForLat = Math.abs(circumference * DENSITY);
+        const dotsForLat = Math.abs(circumference * density);
         for (let x = 0; x < dotsForLat; x++) {
             const lon = -180 + (x * 360) / dotsForLat;
 
