@@ -6,7 +6,7 @@
     "license": "MIT",
     "scripts": {
         "lint": "eslint *.ts*",
-        "gen": "ts-node ./index.ts",
+        "gen": "ts-node ./generateCoordinatesData.ts",
         "test": "jest --coverage"
     },
     "devDependencies": {
@@ -20,6 +20,7 @@
         "typescript": "^4.5.2"
     },
     "dependencies": {
-        "three": "^0.144.0"
+        "three": "^0.144.0",
+        "@world-sphere/types": "*"
     }
 }
