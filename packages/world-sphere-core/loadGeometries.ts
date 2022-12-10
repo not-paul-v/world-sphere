@@ -5,7 +5,7 @@ import {
     GenerationConfig,
 } from "@world-sphere/types";
 import { GeometryHelper } from "./utils/GeometryHelper";
-import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
+import { mergeBufferGeometries } from "./utils/BufferGeometryUtils";
 import { getCoordinates } from "@world-sphere/data";
 
 /**
