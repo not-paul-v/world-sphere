@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { Group, Mesh } from "three";
+import { Group } from "three";
 import { HoverHelper } from "@world-sphere/core";
 import { useFrame } from "@react-three/fiber";
 
-export const useCountryHovered = (countries: Group | null, sphereRef: Group | null) => {
+export const useCountryHovered = (
+    countries: Group | null,
+    sphereRef: Group | null
+) => {
     const [mouseHoverCountry, setMouseHoverCountry] = useState("");
     const [hoverHelper, setHoverHelper] = useState<HoverHelper | undefined>(
         undefined

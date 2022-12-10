@@ -10,7 +10,7 @@ import {
     Vector3,
     Raycaster,
 } from "three";
-import { Coordinate, Country } from "@world-sphere/core/types/types";
+import { Coordinate, Country } from "@world-sphere/types";
 import { ProjectionHelper } from "./ProjectionHelper";
 import { getCountriesData } from "./getCountriesData";
 

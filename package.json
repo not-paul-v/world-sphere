@@ -25,11 +25,12 @@
         "@types/jest": "^29.0.3",
         "babel-jest": "^29.0.3",
         "eslint-config-custom": "*",
+        "eslint-config-prettier": "^8.5.0",
         "husky": "^8.0.1",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^29.0.3",
         "jest-environment-jsdom": "^29.0.3",
-        "prettier": "latest",
+        "prettier": "2.8.1",
         "ts-jest": "^29.0.1",
         "turbo": "latest"
     },
@@ -38,7 +39,7 @@
     },
     "packageManager": "npm@7.24.0",
     "dependencies": {
-        "framer-motion-3d": "^7.6.4",
-        "@react-three/postprocessing": "^2.7.0"
+        "@react-three/postprocessing": "^2.7.0",
+        "framer-motion-3d": "^7.6.4"
     }
 }

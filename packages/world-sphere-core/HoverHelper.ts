@@ -1,11 +1,4 @@
-import {
-    Camera,
-    Group,
-    Mesh,
-    Raycaster,
-    Vector2,
-    Vector3,
-} from "three";
+import { Camera, Group, Mesh, Raycaster, Vector2, Vector3 } from "three";
 import { acceleratedRaycast } from "three-mesh-bvh";
 
 Mesh.prototype.raycast = acceleratedRaycast;
@@ -16,7 +9,7 @@ type Rays = {
     right: Raycaster;
     up: Raycaster;
     down: Raycaster;
-} 
+};
 
 export class HoverHelper {
     previousCountry: string = "";
@@ -39,10 +32,7 @@ export class HoverHelper {
         this.sphereRef = sphereRef;
     }
 
-    public getCountryFromMousePosition(
-        position: Vector2,
-        camera: Camera
-    ): string {
+    public getCountryFromMousePosition(position: Vector2, camera: Camera): string {
         const ray = new Raycaster();
         const mousePointer = new Vector2(position.x, position.y);
 
@@ -50,7 +40,7 @@ export class HoverHelper {
         ray.firstHitOnly = true;
 
         const sphereIntersection = ray.intersectObject(this.sphereRef);
-        
+
         const origin = new Vector3(0, 0, 0);
         const intersectionPoint = sphereIntersection[0]?.point;
 
@@ -64,12 +54,12 @@ export class HoverHelper {
         const topRayVector = new Vector3();
         const bottomRayVector = new Vector3();
 
-        rightRayVector.crossVectors(dir, new Vector3(0, 1, 0))
+        rightRayVector.crossVectors(dir, new Vector3(0, 1, 0));
         leftRayVector.crossVectors(dir, new Vector3(0, -1, 0));
-        
+
         topRayVector.crossVectors(dir, rightRayVector);
         bottomRayVector.crossVectors(dir, leftRayVector);
-        
+
         const pointerM = new Vector2(position.x, position.y);
 
         const elevatedPoint = new Vector3();
@@ -92,7 +82,8 @@ export class HoverHelper {
             true
         );
 
-        if (middleIntersectionPoint.length > 0 &&
+        if (
+            middleIntersectionPoint.length > 0 &&
             middleIntersectionPoint[0].distance < cameraDistanceFromOrigin
         ) {
             const countryName = middleIntersectionPoint[0].object.name;
@@ -101,14 +92,11 @@ export class HoverHelper {
         }
 
         Object.keys(this.rays).forEach((key) => {
-            if (key as keyof Rays === "middle") return;
+            if ((key as keyof Rays) === "middle") return;
 
             const ray = this.rays[key as keyof Rays];
 
-            const intersects = ray.intersectObjects(
-                this.countriesGroup.children,
-                true
-            );
+            const intersects = ray.intersectObjects(this.countriesGroup.children, true);
 
             if (intersects.length > 0) {
                 const countryName = intersects[0].object.name;
