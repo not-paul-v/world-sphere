@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, useMemo } from "react";
-import { BufferGeometry, Group, Line, Mesh, PointLight, Vector3 } from "three";
+import { useState, useRef, useEffect } from "react";
+import { BufferGeometry, Group, Line, PointLight } from "three";
 import { MemoizedSphereCountry } from "./SphereCountry";
 import { loadMergedGeometries } from "@world-sphere/core";
 import { useCountryHovered } from "./hooks/useCountryHovered";
