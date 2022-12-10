@@ -6,7 +6,7 @@
     "license": "MIT",
     "scripts": {
         "lint": "eslint *.ts*",
-        "test": "jest --coverage --silent"
+        "test": "jest --coverage --silent --passWithNoTests"
     },
     "devDependencies": {
         "@types/react": "^17.0.37",
