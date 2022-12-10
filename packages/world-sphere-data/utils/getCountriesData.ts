@@ -1,4 +1,4 @@
-import { Coordinate, Country, Shape } from "@world-sphere/core/types/types";
+import { Coordinate, Country, Shape } from "@world-sphere/types";
 
 export const getCountriesData = (countryData: any) => {
     let countries: Country[] = [];

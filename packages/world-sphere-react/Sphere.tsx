@@ -2,20 +2,17 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { BufferGeometry, Group, Line, Mesh, PointLight, Vector3 } from "three";
 import { MemoizedSphereCountry } from "./SphereCountry";
 import { loadMergedGeometries } from "@world-sphere/core";
-import { acceleratedRaycast } from "three-mesh-bvh";
 import { useCountryHovered } from "./hooks/useCountryHovered";
 import { GeometryHelper } from "@world-sphere/core/utils/GeometryHelper";
 import { Bloom, EffectComposer, Selection } from "@react-three/postprocessing";
 import { useThree } from "@react-three/fiber";
 import { Coordinate } from "@world-sphere/types";
 
-Mesh.prototype.raycast = acceleratedRaycast;
-
 interface SphereProps {
     beams?: Coordinate[];
 }
 
-export function Sphere({ beams }: SphereProps) {
+export function Sphere({ beams = [] }: SphereProps) {
     const [countryGeometries, setCountryGeometries] = useState<
         { key: string; geometry: BufferGeometry }[] | undefined
     >();
@@ -43,18 +40,16 @@ export function Sphere({ beams }: SphereProps) {
         light.position.set(5, 10, 10);
         camera.add(light);
         scene.add(camera);
-    }, [camera]);
+    }, [camera, scene]);
 
     // display beam on nearest tile
     useEffect(() => {
-        if (!beams) return;
-
         for (let beam of beams) {
             const geometry = geometryHelper.getBeamGeometry(beam[0], beam[1]);
 
             if (geometry) beamGeometries.push(geometry);
         }
-    }, [beams]);
+    }, [beams, beamGeometries, geometryHelper]);
 
     return (
         <>

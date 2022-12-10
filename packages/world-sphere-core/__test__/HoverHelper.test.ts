@@ -1,5 +1,4 @@
-// TODO: get tests working
-import { Camera, Group, Mesh, Sphere, SphereGeometry, Vector2, Vector3 } from "three";
+import { Camera, Group, Mesh, SphereGeometry, Vector2, Vector3 } from "three";
 import { HoverHelper } from "../HoverHelper";
 import { loadMergedGeometries } from "../loadGeometries";
 
