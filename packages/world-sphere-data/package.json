@@ -1,13 +1,15 @@
 {
     "name": "@world-sphere/data",
     "version": "0.0.1",
-    "main": "./index.ts",
-    "types": "./index.ts",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "license": "MIT",
     "scripts": {
         "lint": "eslint *.ts*",
         "gen": "ts-node ./generateCoordinatesData.ts",
-        "test": "jest --coverage"
+        "test": "jest --coverage",
+        "dev": "npm run build --watch",
+        "build": "tsup index.ts --format cjs --dts"
     },
     "devDependencies": {
         "@types/node": "^18.7.16",
