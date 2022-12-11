@@ -1,6 +1,6 @@
 {
     "name": "@world-sphere/react",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "./index.tsx",
     "types": "./index.tsx",
     "license": "MIT",
@@ -21,6 +21,8 @@
     "dependencies": {
         "@react-three/drei": "^9.29.1",
         "@react-three/fiber": "^8.7.4",
+        "@react-three/postprocessing": "^2.7.0",
+        "framer-motion-3d": "^7.6.4",
         "three": "^0.144.0",
         "three-mesh-bvh": "^0.5.16",
         "@world-sphere/core": "*"

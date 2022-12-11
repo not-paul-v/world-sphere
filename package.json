@@ -1,6 +1,6 @@
 {
     "name": "world-sphere",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "private": true,
     "workspaces": [
         "apps/*",
@@ -39,8 +39,5 @@
         "node": ">=14.0.0"
     },
     "packageManager": "npm@7.24.0",
-    "dependencies": {
-        "@react-three/postprocessing": "^2.7.0",
-        "framer-motion-3d": "^7.6.4"
-    }
+    "dependencies": {}
 }

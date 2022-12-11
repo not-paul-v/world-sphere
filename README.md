@@ -1,23 +1,16 @@
 # world-sphere
 
-## Beams
+> This is still work in progress
 
-### Find nearest tile
+## Current features as of 0.0.1:
 
--   generated Coordinates returns list of tile coordinates per country sorted by
-    latitude
--   for beam at lat x, lon y iterate over the tiles of each country
--   ignore all coordinate pairs with latitude greater or less than the rounded
-    value of x
--   search for both rounded values of x and y being equal with a tiles
-    coordinate
--   create beam found coordinate
-
--> **Disadvantage**: Cannot place beams on non land parts
-
--> **Solution**: if tile with matching coordinates cannot be found, place beam
-at given coordinates
+-   Display sphere with default tile placement
+-   Display sphere with custom tile placement config (long load times - up to 30 seconds)
+-   Highlight countries by hovering over them
+-   Display beams on the nearest tiles given specific coordinates
 
 ## TODO:
 
--   hover performance sucks
+-   Improve hover performance
+-   HoverHelper tests
+-   Enable customization from the outside
