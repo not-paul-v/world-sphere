@@ -4,7 +4,7 @@ import { Coordinate } from "@world-sphere/types";
 export const findNearestGeometryCoordinates = (
     lat: number,
     lon: number
-): Coordinate => {
+): Coordinate | undefined => {
     const roundedLat = Math.round(lat);
     const roundedLon = Math.round(lon);
 
@@ -25,5 +25,5 @@ export const findNearestGeometryCoordinates = (
             return coordinate as Coordinate;
         }
     }
-    return [lat, lon] as Coordinate;
+    return undefined;
 };
