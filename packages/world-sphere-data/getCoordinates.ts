@@ -24,7 +24,7 @@ export async function getCoordinates(config?: GenerationConfig) {
     }, config);
 
     for (let countryKey in coordinates) {
-        const sortedArr = coordinates[countryKey].sort((a, b) => a[0] - a[1]);
+        const sortedArr = coordinates[countryKey].sort((a, b) => b[0] - a[0]);
         coordinates[countryKey] = sortedArr;
     }
 
