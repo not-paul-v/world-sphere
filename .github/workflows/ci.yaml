@@ -32,7 +32,11 @@ jobs:
             - name: NPM CI
               run: npm ci
 
-            - name: Publish
-              run: npm publish
+            - name: Publish to NPM
+              id: changesets
+              uses: changesets/action@v1
+              with:
+                publish: npm release
               env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
