@@ -1,6 +1,6 @@
 {
     "name": "@world-sphere/types",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "main": "./index.ts",
     "types": "./index.ts",
     "license": "MIT",
@@ -17,5 +17,8 @@
         "tslib": "^2.4.0",
         "typescript": "^4.5.2"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "publishConfig": {
+        "access": "public"
+    }
 }

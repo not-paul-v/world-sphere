@@ -1,6 +1,6 @@
 {
     "name": "@world-sphere/react",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "main": "./dist/index.jsx",
     "types": "./dist/index.d.ts",
     "license": "MIT",
@@ -28,5 +28,8 @@
         "three": "^0.144.0",
         "three-mesh-bvh": "^0.5.16",
         "@world-sphere/core": "*"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
